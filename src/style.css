@@ -87,3 +87,11 @@ h1 {
   color: white;
   transform: scale(1.05);
 }
+
+.scoreboard {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 15px;
+  font-weight: bold;
+}
