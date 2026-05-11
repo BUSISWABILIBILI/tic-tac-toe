@@ -26,6 +26,13 @@
             <span>Player O</span>
             <input type="text" id="player-two-name" placeholder="Player 2 name" />
           </label>
+          <label>
+            <span>Mode</span>
+            <select id="game-mode">
+              <option value="human">Two players</option>
+              <option value="computer">Vs computer</option>
+            </select>
+          </label>
           <button class="start-btn" type="button">Start</button>
         </div>
 
@@ -50,7 +57,10 @@
           <p><span class="score-mark o-mark">O</span><span class="player-two-score">Player 2: 0</span></p>
         </div>
 
-        <button class="restart-btn" type="button">Restart Game</button>
+        <div class="actions">
+          <button class="restart-btn" type="button">Next Round</button>
+          <button class="reset-score-btn" type="button">Reset Scores</button>
+        </div>
       </section>
     </main>
 
