@@ -140,8 +140,18 @@ const GameController = (() => {
     player1 = createPlayer(playerOneName || "Player 1", "X");
     player2 = createPlayer(playerTwoName || "Player 2", "O");
 
+    player1Score = 0;
+    player2Score = 0;
+
     currentPlayer = player1;
     isGameOver = false;
+
+    DisplayController.updateScores(
+      player1.name,
+      player1Score,
+      player2.name,
+      player2Score,
+    );
 
     Gameboard.resetBoard();
     DisplayController.renderBoard();
@@ -215,6 +225,7 @@ const DisplayController = (() => {
     addCellListeners,
     updateStatus,
     highlightWinningCells,
+    updateScores,
   };
 })();
 
