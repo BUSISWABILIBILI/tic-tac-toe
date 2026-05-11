@@ -51,7 +51,7 @@ const GameController = (() => {
     const markPlaced = Gameboard.placeMark(index, currentPlayer.mark);
 
     if (!markPlaced) {
-      console.log("The spot is already taken.");
+      DisplayController.updateStatus("Cell already occupied! Try again.");
       return;
     }
 
@@ -61,16 +61,21 @@ const GameController = (() => {
     if (checkWinner()) {
       console.log(`${currentPlayer.name} wins!`);
       isGameOver = true;
+      DisplayController.updateStatus(`${currentPlayer.name} wins!`);
       return;
     }
 
     if (checkTie()) {
       console.log("It's a tie!");
       isGameOver = true;
+      DisplayController.updateStatus("It's a tie!");
       return;
     }
 
     switchPlayer();
+    DisplayController.updateStatus(
+      `${currentPlayer.name}'s turn (${currentPlayer.mark})`,
+    );
   };
 
   return { getCurrentPlayer, playRound };
@@ -96,9 +101,16 @@ const DisplayController = (() => {
     });
   };
 
+  const statusText = document.querySelector(".status");
+
+  const updateStatus = (message) => {
+    statusText.textContent = message;
+  };
+
   return {
     renderBoard,
     addCellListeners,
+    updateStatus,
   };
 })();
 
