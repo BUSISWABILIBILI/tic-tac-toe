@@ -40,3 +40,35 @@ h1 {
   font-weight: bold;
   cursor: pointer;
 }
+
+.player-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 25px;
+  flex-wrap: wrap;
+}
+
+.player-form input {
+  padding: 10px 14px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.start-btn,
+.restart-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.start-btn:hover,
+.restart-btn:hover {
+  background-color: #1d4ed8;
+}
