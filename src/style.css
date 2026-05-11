@@ -32,3 +32,11 @@ h1 {
   font-size: 1.2rem;
   font-weight: bold;
 }
+
+.restart-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
