@@ -58,7 +58,7 @@ const GameController = (() => {
       [2, 4, 6],
     ];
 
-    return winningCombinations.some((combination) => {
+    return winningCombinations.find((combination) => {
       return combination.every((index) => {
         return board[index] === currentPlayer.mark;
       });
@@ -82,8 +82,11 @@ const GameController = (() => {
     Gameboard.printBoard();
     DisplayController.renderBoard();
 
-    if (checkWinner()) {
+    const winningCombination = checkWinner();
+
+    if (winningCombination) {
       isGameOver = true;
+      DisplayController.highlightWinningCells(winningCombination);
       DisplayController.updateStatus(`${currentPlayer.name} wins!`);
       return;
     }
@@ -95,6 +98,7 @@ const GameController = (() => {
     }
 
     switchPlayer();
+
     DisplayController.updateStatus(
       `${currentPlayer.name}'s turn (${currentPlayer.mark})`,
     );
@@ -107,6 +111,7 @@ const GameController = (() => {
     isGameOver = false;
 
     DisplayController.renderBoard();
+
     DisplayController.updateStatus(
       `${currentPlayer.name}'s turn (${currentPlayer.mark})`,
     );
@@ -121,6 +126,7 @@ const GameController = (() => {
 
     Gameboard.resetBoard();
     DisplayController.renderBoard();
+
     DisplayController.updateStatus(
       `${currentPlayer.name}'s turn (${currentPlayer.mark})`,
     );
@@ -142,6 +148,7 @@ const DisplayController = (() => {
 
     cells.forEach((cell, index) => {
       cell.textContent = board[index];
+      cell.classList.remove("winner");
     });
   };
 
@@ -156,20 +163,27 @@ const DisplayController = (() => {
     restartButton.addEventListener("click", () => {
       GameController.restartGame();
     });
-  };
 
-  startButton.addEventListener("click", () => {
-    GameController.startGame(playerOneInput.value, playerTwoInput.value);
-  });
+    startButton.addEventListener("click", () => {
+      GameController.startGame(playerOneInput.value, playerTwoInput.value);
+    });
+  };
 
   const updateStatus = (message) => {
     statusText.textContent = message;
+  };
+
+  const highlightWinningCells = (winningCombination) => {
+    winningCombination.forEach((index) => {
+      cells[index].classList.add("winner");
+    });
   };
 
   return {
     renderBoard,
     addCellListeners,
     updateStatus,
+    highlightWinningCells,
   };
 })();
 

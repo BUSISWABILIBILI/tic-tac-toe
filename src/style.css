@@ -81,3 +81,9 @@ h1 {
 .restart-btn:hover {
   background-color: #1d4ed8;
 }
+
+.cell.winner {
+  background-color: #22c55e;
+  color: white;
+  transform: scale(1.05);
+}
