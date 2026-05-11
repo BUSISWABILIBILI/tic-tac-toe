@@ -30,8 +30,8 @@ const Gameboard = (() => {
 })();
 
 const GameController = (() => {
-  const player1 = createPlayer("Player 1", "X");
-  const player2 = createPlayer("Player 2", "O");
+  let player1 = createPlayer("Player 1", "X");
+  let player2 = createPlayer("Player 2", "O");
 
   let currentPlayer = player1;
   let isGameOver = false;
@@ -112,13 +112,30 @@ const GameController = (() => {
     );
   };
 
-  return { getCurrentPlayer, playRound, restartGame };
+  const startGame = (playerOneName, playerTwoName) => {
+    player1 = createPlayer(playerOneName || "Player 1", "X");
+    player2 = createPlayer(playerTwoName || "Player 2", "O");
+
+    currentPlayer = player1;
+    isGameOver = false;
+
+    Gameboard.resetBoard();
+    DisplayController.renderBoard();
+    DisplayController.updateStatus(
+      `${currentPlayer.name}'s turn (${currentPlayer.mark})`,
+    );
+  };
+
+  return { getCurrentPlayer, playRound, restartGame, startGame };
 })();
 
 const DisplayController = (() => {
   const cells = document.querySelectorAll(".cell");
   const statusText = document.querySelector(".status");
   const restartButton = document.querySelector(".restart-btn");
+  const startButton = document.querySelector(".start-btn");
+  const playerOneInput = document.querySelector("#player-one-name");
+  const playerTwoInput = document.querySelector("#player-two-name");
 
   const renderBoard = () => {
     const board = Gameboard.getBoard();
@@ -140,6 +157,10 @@ const DisplayController = (() => {
       GameController.restartGame();
     });
   };
+
+  startButton.addEventListener("click", () => {
+    GameController.startGame(playerOneInput.value, playerTwoInput.value);
+  });
 
   const updateStatus = (message) => {
     statusText.textContent = message;
