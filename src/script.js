@@ -53,6 +53,7 @@ const GameController = (() => {
     }
 
     Gameboard.printBoard();
+    DisplayController.renderBoard();
 
     if (checkWinner()) {
       console.log(`${currentPlayer.name} wins!`);
@@ -68,6 +69,22 @@ const GameController = (() => {
   };
 
   return { getCurrentPlayer, playRound };
+})();
+
+const DisplayController = (() => {
+  const cells = document.querySelectorAll(".cell");
+
+  const renderBoard = () => {
+    const board = Gameboard.getBoard();
+
+    cells.forEach((cell, index) => {
+      cell.textContent = board[index];
+    });
+  };
+
+  return {
+    renderBoard,
+  };
 })();
 
 const checkWinner = (board) => {
@@ -88,7 +105,7 @@ const checkWinner = (board) => {
 
   return winningCombinations.some((combination) => {
     return combination.every((index) => {
-      return board[index] === currentPlayer.marker;
+      return board[index] === currentPlayer.mark;
     });
   });
 };
