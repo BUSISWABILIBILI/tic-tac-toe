@@ -25,6 +25,12 @@ const Gameboard = (() => {
   return { getBoard, placeMark, resetBoard, printBoard };
 })();
 
-Gameboard.placeMark(0, "X");
-Gameboard.placeMark(4, "O");
-Gameboard.printBoard();
+function createPlayer(name, mark) {
+  return { name, mark };
+}
+
+const playerOne = createPlayer("Player One", "X");
+const playerTwo = createPlayer("Player Two", "O");
+
+console.log(playerOne);
+console.log(playerTwo);
