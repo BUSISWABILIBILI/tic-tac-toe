@@ -36,6 +36,9 @@ const GameController = (() => {
   let currentPlayer = player1;
   let isGameOver = false;
 
+  let player1Score = 0;
+  let player2Score = 0;
+
   const getCurrentPlayer = () => currentPlayer;
 
   const switchPlayer = () => {
@@ -86,8 +89,24 @@ const GameController = (() => {
 
     if (winningCombination) {
       isGameOver = true;
+
+      if (currentPlayer === player1) {
+        player1Score++;
+      } else {
+        player2Score++;
+      }
+
+      DisplayController.updateScores(
+        player1.name,
+        player1Score,
+        player2.name,
+        player2Score,
+      );
+
       DisplayController.highlightWinningCells(winningCombination);
+
       DisplayController.updateStatus(`${currentPlayer.name} wins!`);
+
       return;
     }
 
@@ -142,6 +161,8 @@ const DisplayController = (() => {
   const startButton = document.querySelector(".start-btn");
   const playerOneInput = document.querySelector("#player-one-name");
   const playerTwoInput = document.querySelector("#player-two-name");
+  const playerOneScoreText = document.querySelector(".player-one-score");
+  const playerTwoScoreText = document.querySelector(".player-two-score");
 
   const renderBoard = () => {
     const board = Gameboard.getBoard();
@@ -177,6 +198,16 @@ const DisplayController = (() => {
     winningCombination.forEach((index) => {
       cells[index].classList.add("winner");
     });
+  };
+
+  const updateScores = (
+    playerOneName,
+    playerOneScore,
+    playerTwoName,
+    playerTwoScore,
+  ) => {
+    playerOneScoreText.textContent = `${playerOneName}: ${playerOneScore}`;
+    playerTwoScoreText.textContent = `${playerTwoName}: ${playerTwoScore}`;
   };
 
   return {
