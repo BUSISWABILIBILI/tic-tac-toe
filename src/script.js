@@ -40,6 +40,10 @@ const GameController = (() => {
     currentPlayer = currentPlayer === player1 ? player2 : player1;
   };
 
+  const checkTie = () => {
+    return Gameboard.getBoard().every((cell) => cell !== "");
+  };
+
   const playRound = (index) => {
     const markPlaced = Gameboard.placeMark(index, currentPlayer.mark);
 
@@ -55,6 +59,11 @@ const GameController = (() => {
       return;
     }
 
+    if (checkTie()) {
+      console.log("It's a tie!");
+      return;
+    }
+
     switchPlayer();
   };
 
@@ -62,7 +71,7 @@ const GameController = (() => {
 })();
 
 const checkWinner = (board) => {
-  const board = Gameboard.getBoard();
+  board = Gameboard.getBoard();
 
   const winningCombinations = [
     [0, 1, 2],
