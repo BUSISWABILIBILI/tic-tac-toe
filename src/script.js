@@ -33,6 +33,7 @@ const GameController = (() => {
   const player1 = createPlayer("Player 1", "X");
   const player2 = createPlayer("Player 2", "O");
   let currentPlayer = player1;
+  let isGameOver = false;
 
   const getCurrentPlayer = () => currentPlayer;
 
@@ -45,6 +46,8 @@ const GameController = (() => {
   };
 
   const playRound = (index) => {
+    if (isGameOver) return;
+
     const markPlaced = Gameboard.placeMark(index, currentPlayer.mark);
 
     if (!markPlaced) {
@@ -57,11 +60,13 @@ const GameController = (() => {
 
     if (checkWinner()) {
       console.log(`${currentPlayer.name} wins!`);
+      isGameOver = true;
       return;
     }
 
     if (checkTie()) {
       console.log("It's a tie!");
+      isGameOver = true;
       return;
     }
 
