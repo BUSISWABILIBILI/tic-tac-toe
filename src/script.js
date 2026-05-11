@@ -82,8 +82,18 @@ const DisplayController = (() => {
     });
   };
 
+  const addCellListeners = () => {
+    cells.forEach((cell) => {
+      cell.addEventListener("click", () => {
+        const index = cell.dataset.index;
+        GameController.playRound(index);
+      });
+    });
+  };
+
   return {
     renderBoard,
+    addCellListeners,
   };
 })();
 
