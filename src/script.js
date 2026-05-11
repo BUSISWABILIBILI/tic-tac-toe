@@ -179,7 +179,11 @@ const DisplayController = (() => {
 
     cells.forEach((cell, index) => {
       cell.textContent = board[index];
-      cell.classList.remove("winner");
+      cell.classList.remove("winner", "x", "o");
+
+      if (board[index]) {
+        cell.classList.add(board[index].toLowerCase());
+      }
     });
   };
 
